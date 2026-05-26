@@ -8,7 +8,8 @@ import { Navigation, FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/free-mode";
-import { ArrowRight, ArrowLeft, Heart } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
+import ProductCard from "@/components/product/ProductCard";
 
 const PRODUCTS = [
   { id: 1, name: "Midnight Blue Silk Saree", price: "₹18,500", image: "/images/collection_sarees.png" },
@@ -21,92 +22,72 @@ const PRODUCTS = [
 
 export default function BestSellers() {
   return (
-    <section className="w-full py-24 md:py-32 bg-white overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-        <div className="flex justify-between items-end mb-12">
+    <section className="w-full py-16 sm:py-24 md:py-32 bg-white overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8">
+        {/* Header */}
+        <div className="flex justify-between items-end mb-8 sm:mb-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-sm tracking-[0.3em] uppercase text-foreground/60 mb-2">Most Loved</h2>
-            <h3 className="font-heading text-3xl md:text-5xl text-foreground font-light">Best Sellers</h3>
+            <h2 className="text-xs tracking-[0.3em] uppercase text-foreground/60 mb-2">Most Loved</h2>
+            <h3 className="font-heading text-3xl sm:text-4xl md:text-5xl text-foreground font-light">Best Sellers</h3>
           </motion.div>
 
-          <div className="hidden md:flex gap-4">
-            <button className="swiper-button-prev-custom w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
-              <ArrowLeft className="w-5 h-5" strokeWidth={1} />
+          {/* Nav arrows — desktop only */}
+          <div className="hidden md:flex gap-3">
+            <button className="swiper-button-prev-custom w-11 h-11 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all">
+              <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
             </button>
-            <button className="swiper-button-next-custom w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
-              <ArrowRight className="w-5 h-5" strokeWidth={1} />
+            <button className="swiper-button-next-custom w-11 h-11 rounded-full border border-neutral-300 flex items-center justify-center hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all">
+              <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
             </button>
           </div>
         </div>
 
+        {/* Swiper */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative"
         >
           <Swiper
             modules={[Navigation, FreeMode]}
-            spaceBetween={24}
-            slidesPerView={1.2}
+            spaceBetween={16}
+            slidesPerView={1.4}
             freeMode={true}
             navigation={{
               nextEl: ".swiper-button-next-custom",
               prevEl: ".swiper-button-prev-custom",
             }}
             breakpoints={{
-              640: { slidesPerView: 2.2 },
-              1024: { slidesPerView: 3.2 },
-              1280: { slidesPerView: 4.2 },
+              480: { slidesPerView: 2.1, spaceBetween: 16 },
+              768: { slidesPerView: 2.5, spaceBetween: 20 },
+              1024: { slidesPerView: 3.2, spaceBetween: 24 },
+              1280: { slidesPerView: 4.1, spaceBetween: 24 },
             }}
-            className="!pb-12"
+            className="!pb-8"
           >
-            {PRODUCTS.map((product) => (
+            {PRODUCTS.map((product, i) => (
               <SwiperSlide key={product.id}>
-                <div className="group flex flex-col">
-                  {/* Image Container */}
-                  <div className="relative aspect-[3/4] w-full bg-secondary/20 overflow-hidden mb-6">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    
-                    {/* Hover Actions */}
-                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                      <div className="flex gap-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                        <button className="flex-1 bg-white text-foreground py-3 text-xs tracking-widest uppercase hover:bg-foreground hover:text-white transition-colors">
-                          Quick Add
-                        </button>
-                        <button className="w-12 h-12 bg-white text-foreground flex items-center justify-center hover:bg-foreground hover:text-white transition-colors">
-                          <Heart className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Product Details */}
-                  <div className="flex flex-col items-center text-center">
-                    <Link href={`/product/${product.id}`} className="font-heading text-lg md:text-xl text-foreground font-light mb-2 hover:opacity-70 transition-opacity">
-                      {product.name}
-                    </Link>
-                    <p className="font-sans text-sm tracking-wider text-foreground/80 font-medium">
-                      {product.price}
-                    </p>
-                  </div>
-                </div>
+                <ProductCard product={product} priority={i < 3} />
               </SwiperSlide>
             ))}
           </Swiper>
         </motion.div>
+
+        {/* View All — mobile */}
+        <div className="mt-8 sm:mt-10 flex justify-center md:hidden">
+          <Link
+            href="/best-seller"
+            className="border border-neutral-300 text-neutral-700 px-8 py-3 text-xs tracking-widest uppercase hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all"
+          >
+            View All
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -133,3 +133,43 @@
 .cursor-blob {
   @apply fixed top-0 left-0 w-8 h-8 rounded-full bg-primary/20 pointer-events-none z-50 transition-transform duration-300 ease-out backdrop-blur-sm mix-blend-difference;
 }
+
+/* Hide scrollbar utility */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth tap highlight removal for mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Fluid typography base */
+html {
+  font-size: 15px;
+}
+@media (min-width: 640px) {
+  html { font-size: 15.5px; }
+}
+@media (min-width: 1024px) {
+  html { font-size: 16px; }
+}
+
+/* Prevent horizontal overflow globally */
+body {
+  overflow-x: hidden;
+}
+
+/* Scroll animation for hero indicator */
+@keyframes scroll-down {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+.animate-scroll-down {
+  animation: scroll-down 1.8s ease-in-out infinite;
+}
