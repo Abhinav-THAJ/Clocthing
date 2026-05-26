@@ -56,11 +56,12 @@ export default function Hero() {
           alt="Clothing Festive Fusion"
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-top"
           sizes="100vw"
+          style={{ objectPosition: "center top" }}
         />
-        {/* Light gradient — let image show through */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
+        {/* Subtle gradient — keep image visible, darken only bottom for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
       </div>
 
       {/* ────── Desktop image (landscape, ≥ sm) ────── */}
@@ -79,7 +80,7 @@ export default function Hero() {
       {/* ────── Text content ────── */}
       {/* Mobile: text sits at the bottom over the image */}
       {/* Desktop: text is centered */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-end sm:justify-center text-center px-6 pb-14 sm:pb-0">
+      <div className="relative z-10 h-full flex flex-col items-center justify-end sm:justify-center text-center px-6 pb-16 sm:pb-0">
         <p className="hero-text text-white/80 text-[9px] sm:text-xs md:text-sm tracking-[0.4em] uppercase mb-3 sm:mb-5 font-medium">
           Special Collections
         </p>
