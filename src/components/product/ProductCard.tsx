@@ -11,12 +11,13 @@ interface ProductCardProps {
   product: {
     id: number;
     name: string;
-    price: string;
+    price?: string;
     image: string;
     category?: string;
     fabric?: string;
     sold?: string;
     originalPrice?: string;
+    salePrice?: string;
     discount?: string;
     tag?: string;
   };
@@ -35,7 +36,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
       id: `${product.id}-OS`,
       productId: String(product.id),
       name: product.name,
-      price: product.salePrice || product.price,
+      price: product.salePrice || product.price || "₹0",
       image: product.image,
       size: "OS",
     });
